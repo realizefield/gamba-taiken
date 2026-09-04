@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4日間無料デモ｜江原予備校 高認GAMBA</title>
+<style>
+  :root{
+    --main:#2d6a4f;
+    --main-light:#40916c;
+    --accent:#e76f51;
+    --bg:#fdf6ec;
+    --card:#ffffff;
+    --text:#2b2b2b;
+    --sub:#6b6b6b;
+    --border:#e6ddc9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.7;
+  }
+  header{
+    background:linear-gradient(135deg,var(--main),var(--main-light));
+    color:#fff;
+    padding:32px 20px 28px;
+    text-align:center;
+  }
+  header .school{
+    font-size:14px;
+    opacity:.85;
+    letter-spacing:.05em;
+  }
+  header h1{
+    margin:8px 0 6px;
+    font-size:22px;
+  }
+  header p{
+    margin:0;
+    font-size:14px;
+    opacity:.92;
+  }
+  main{
+    max-width:640px;
+    margin:0 auto;
+    padding:24px 16px 60px;
+  }
+  .status-box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px 18px;
+    margin-bottom:22px;
+    text-align:center;
+    font-size:14px;
+    color:var(--sub);
+  }
+  .status-box .days{
+    font-size:26px;
+    font-weight:bold;
+    color:var(--accent);
+    display:block;
+    margin:4px 0;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 2px 6px rgba(0,0,0,.04);
+  }
+  .card .tag{
+    display:inline-block;
+    font-size:12px;
+    background:#eef5ee;
+    color:var(--main);
+    padding:3px 10px;
+    border-radius:999px;
+    margin-bottom:8px;
+  }
+  .card h2{
+    margin:0 0 8px;
+    font-size:18px;
+  }
+  .card p{
+    margin:0 0 16px;
+    font-size:14px;
+    color:var(--sub);
+  }
+  .btn{
+    display:inline-block;
+    width:100%;
+    text-align:center;
+    background:var(--main);
+    color:#fff;
+    text-decoration:none;
+    padding:13px 0;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:bold;
+  }
+  .btn:active{opacity:.85;}
+  .note{
+    font-size:13px;
+    color:var(--sub);
+    margin-top:26px;
+    padding:16px;
+    background:#f4efe2;
+    border-radius:12px;
+  }
+  .expired-box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:32px 22px;
+    text-align:center;
+  }
+  .expired-box h2{
+    color:var(--main);
+    margin-top:0;
+  }
+  .contact{
+    margin-top:18px;
+    font-size:14px;
+    color:var(--text);
+  }
+  .contact a{color:var(--main);}
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:var(--sub);
+    padding:20px 0 30px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="school">江原予備校 ／ 高認GAMBA</div>
+  <h1>4日間無料デモ体験</h1>
+  <p>まずは実際の教材を、ご自身のペースでご覧ください</p>
+</header>
+
+<main>
+  <div id="statusBox" class="status-box"></div>
+  <div id="content"></div>
+
+  <div class="note" id="closingNote" style="display:none;">
+    デモは自由に使っていただいて構いません。わからない語や単元があれば、そのままメモしておいて次回の面談でご相談ください。
+  </div>
+</main>
+
+<footer>
+  江原予備校（株式会社アイラコーポレーション）<br>
+  096-382-6761 ／ kogen@coast.ocn.ne.jp
+</footer>
+
+<script>
+/* ==== ここだけ、必要に応じて書き換えてください ==== */
+const SUBJECTS = [
+  {
+    tag: "土台①：単語",
+    title: "中学英単語",
+    desc: "中学3年分の基礎単語を、単元ごとに繰り返し練習できます。",
+    url: "https://realizefield.github.io/j-engglish-word/"
+  },
+  {
+    tag: "土台②：文法",
+    title: "中学基礎英文法",
+    desc: "is / am / are のようなごく基礎から、中学3年分の文法を1つずつ確認できます。単語のポップアップ・発音つき。",
+    url: "https://realizefield.github.io/j-english/"
+  },
+  {
+    tag: "本番レベル：単語",
+    title: "高認英単語",
+    desc: "高認レベルの英単語200語を、フラッシュカード・並べ替え・クイズで覚えていきます。",
+    url: "https://realizefield.github.io/kounin_english_word/hs_index.html"
+  },
+  {
+    tag: "本番レベル：文法・過去問",
+    title: "高認英語 過去問対策",
+    desc: "高認の出題形式に沿って、実戦的な問題で仕上げます。",
+    url: "https://realizefield.github.io/kouni-eng-kakomon/kounin_eng_index.html"
+  },
+  {
+    tag: "高認直結",
+    title: "歴史総合",
+    desc: "高認の出題範囲に沿って、単元ごとに読んで理解を確認していく教材です。",
+    url: "https://realizefield.github.io/rekishisougou/index.html"
+  }
+];
+
+/* デモの長さ（日数） */
+const DEMO_DAYS = 4;
+
+/* ==== ここから下は書き換え不要 ==== */
+const STORAGE_KEY = "gamba_demo_week_start";
+const now = new Date();
+
+let startStr = localStorage.getItem(STORAGE_KEY);
+if (!startStr) {
+  startStr = now.toISOString();
+  localStorage.setItem(STORAGE_KEY, startStr);
+}
+const start = new Date(startStr);
+const expiry = new Date(start.getTime() + DEMO_DAYS * 24 * 60 * 60 * 1000);
+const msLeft = expiry - now;
+const daysLeft = Math.ceil(msLeft / (24 * 60 * 60 * 1000));
+
+const statusBox = document.getElementById("statusBox");
+const content = document.getElementById("content");
+const closingNote = document.getElementById("closingNote");
+
+if (msLeft > 0) {
+  statusBox.innerHTML =
+    "このページを開いてから " + DEMO_DAYS + " 日間、ご覧いただけます<br>" +
+    "<span class='days'>あと " + daysLeft + " 日</span>" +
+    "有効期限：" + expiry.toLocaleDateString("ja-JP");
+
+  content.innerHTML = SUBJECTS.map(s => `
+    <div class="card">
+      <span class="tag">${s.tag}</span>
+      <h2>${s.title}</h2>
+      <p>${s.desc}</p>
+      <a class="btn" href="${s.url}" target="_blank" rel="noopener">教材を開く →</a>
+    </div>
+  `).join("");
+
+  closingNote.style.display = "block";
+} else {
+  statusBox.style.display = "none";
+  content.innerHTML = `
+    <div class="expired-box">
+      <h2>デモ期間が終了しました</h2>
+      <p>4日間の無料デモはここまでです。<br>ご覧いただきありがとうございました。</p>
+      <p>続けてご検討いただける場合や、もう少し見たい単元がある場合は、お気軽にご連絡ください。</p>
+      <div class="contact">
+        📞 096-382-6761<br>
+        ✉️ kogen@coast.ocn.ne.jp
+      </div>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>
